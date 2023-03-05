@@ -1,0 +1,95 @@
+import java.util.*;
+
+public class stackClass {
+    static class Node {
+        int data;
+        Node next;
+        Node(int data){
+            this.data = data;
+            this.next = null;
+        }
+    }
+    static class stack{
+        Node head;
+        public boolean isEmpty(){
+            return head == null;
+        }
+        public void push(int data){
+            Node newNode = new Node(data);
+            if(isEmpty()) {
+                head = newNode;
+                return;
+            } else {
+                newNode.next = head;
+                head = newNode;
+            }
+        }
+        public void pop(){
+            if(isEmpty()) {
+                return;
+            } else {
+                head = head.next;
+            }
+        }
+        public int peek(){
+            if(isEmpty()){
+                return -1;
+            } else {
+                return head.data;
+            }
+        }
+    }
+    static class stack{
+        ArrayList<Integer> list = new ArrayList<>();
+        public boolean isEmpty(){
+            return list.size() == 0;
+        }
+
+        public void push(int data){
+            list.add(data);
+        }
+        public int pop(){
+            if(isEmpty()){
+                return -1;
+            }
+            int top = list.get(list.size()-1);
+            list.remove(list.size()-1);
+            return top;
+        }
+        public int peek(){
+            if(isEmpty()){
+                return -1;
+            }
+            return list.get(list.size()-1);
+        }
+}
+    public static void pushAtBottom(int data, Stack<Integer> s){
+        if(s.isEmpty()){
+            s.push(data);
+            return;
+        }
+        int top = s.pop();
+        pushAtBottom(data, s);
+        s.push(top);
+    }
+    public static void reverseStack(Stack<Integer> s){
+        if(s.isEmpty()){
+            return;
+        }
+        int top = s.pop();
+        reverseStack(s);
+        pushAtBottom(top, s);
+    }
+    public static void main(String args[]){
+        Stack<Integer> s = new Stack<>();
+        s.push(1);
+        s.push(2);
+        s.push(3);
+        s.push(4);
+        reverseStack(s);
+        while(!s.isEmpty()){
+            System.out.println(s.peek());
+            s.pop();
+        }
+    }
+}
